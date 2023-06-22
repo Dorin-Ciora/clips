@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterUserPayload } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { RegisterValidators } from '../validators/register-validators';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class RegisterComponent {
       Validators.required
     ]),
     phoneNumber: new FormControl('')
-  })
+  }, [RegisterValidators.match])
   public showAlert: boolean = false;
   public alertMsg: string = 'Please wait! Your account is being created.'
   public alertColor: string = 'blue';

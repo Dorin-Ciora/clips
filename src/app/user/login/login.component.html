@@ -29,8 +29,9 @@
     <label class="inline-block mb-2">Password</label>
     <input
       required
-      [(ngModel)]="credentials.email"
+      [(ngModel)]="credentials.password"
       #password="ngModel"
+      name="password"
       type="password"
       class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
       placeholder="Password"

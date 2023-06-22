@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { AuthService } from '../services/auth.service';
 import { ModalService } from '../services/modal.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +13,7 @@ import { ModalService } from '../services/modal.service';
 export class NavComponent implements OnInit {
   public isAuthenticated$: Observable<boolean>;
 
-  constructor(public modalService: ModalService, private authService: AuthService) {
+  constructor(public modalService: ModalService, private authService: AuthService, private angularFirebaseAuth: AngularFireAuth) {
     this.isAuthenticated$ = this.authService.isAuthenticated$.pipe(map(user => !!user));
   }
 
@@ -22,6 +23,12 @@ export class NavComponent implements OnInit {
   public openModal($event: Event) {
     $event.preventDefault();
     this.modalService.toggleModal('auth');
+  }
+
+  public async logout(event: Event) {
+    event.preventDefault();
+
+    await this.angularFirebaseAuth.signOut()
   }
 
 }

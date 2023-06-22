@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { delay, map } from "rxjs/operators";
 import { RegisterUserPayload, RegisterUserResponse } from "../model/user.model";
 
 @Injectable({
@@ -10,6 +10,7 @@ import { RegisterUserPayload, RegisterUserResponse } from "../model/user.model";
 })
 export class AuthService {
   public isAuthenticated$: Observable<boolean>;
+  isAuthenticatedWithDelay$: Observable<boolean>;
   private userCollection: AngularFirestoreCollection<RegisterUserPayload>;
 
   constructor(
@@ -18,6 +19,7 @@ export class AuthService {
     ) {
       this.userCollection = this.database.collection('users');
       this.isAuthenticated$ = this.firebaseAuth.user.pipe(map(user => !!user));
+      this.isAuthenticatedWithDelay$ = this.isAuthenticated$.pipe(delay(1000));
     }
 
   public handleRegistrationError(error: string): string {
