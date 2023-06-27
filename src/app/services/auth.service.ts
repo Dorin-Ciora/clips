@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Observable } from "rxjs";
 import { delay, map } from "rxjs/operators";
 import { RegisterUserPayload, RegisterUserResponse } from "../model/user.model";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthService {
 
   constructor(
     private firebaseAuth: AngularFireAuth,
-    private database: AngularFirestore
+    private database: AngularFirestore,
+    private router: Router
     ) {
       this.userCollection = this.database.collection('users');
       this.isAuthenticated$ = this.firebaseAuth.user.pipe(map(user => !!user));
@@ -63,6 +65,13 @@ export class AuthService {
         alertColor: 'red'
       }
     })
+  }
+
+  public async logout(event: Event) {
+    event.preventDefault();
+
+    await this.firebaseAuth.signOut();
+    await this.router.navigateByUrl('/')
   }
 
 

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterUserPayload } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterValidators } from '../validators/register-validators';
+import { EmailTaken } from '../validators/email-taken';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class RegisterComponent {
     email: new FormControl('', [
       Validators.required,
       Validators.email
-    ]),
+    ], [this.emailTaken.validate]),
     age: new FormControl<number | null>(null, [
       Validators.required,
       Validators.min(18),
@@ -34,13 +35,14 @@ export class RegisterComponent {
       Validators.required
     ]),
     phoneNumber: new FormControl('')
-  }, [RegisterValidators.match])
+  }, [RegisterValidators.match('password', 'confirm_password')])
   public showAlert: boolean = false;
   public alertMsg: string = 'Please wait! Your account is being created.'
   public alertColor: string = 'blue';
 
   constructor(
-    private authSerice: AuthService
+    private authSerice: AuthService,
+    private emailTaken: EmailTaken
   ) { }
 
   public registerUser() {

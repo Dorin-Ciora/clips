@@ -31,4 +31,6 @@
   </p>
   <p class="text-red-400" *ngIf="control.errors?.['min']">Value to low.</p>
   <p class="text-red-400" *ngIf="control.errors?.['max']">Value to high.</p>
+  <p class="text-red-400" *ngIf="control.errors?.['noMatch']">Passwords do not match.</p>
+  <p class="text-red-400" *ngIf="control.errors?.['emailTaken']">Email taken. Please try another email.</p>
 </ng-container>
