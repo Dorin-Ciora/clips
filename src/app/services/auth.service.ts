@@ -1,27 +1,33 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable } from "rxjs";
-import { delay, map } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { delay, map, filter, switchMap } from "rxjs/operators";
 import { RegisterUserPayload, RegisterUserResponse } from "../model/user.model";
-import { Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public isAuthenticated$: Observable<boolean>;
-  isAuthenticatedWithDelay$: Observable<boolean>;
+  public isAuthenticatedWithDelay$: Observable<boolean>;
+  public redirect: boolean = false;
   private userCollection: AngularFirestoreCollection<RegisterUserPayload>;
 
   constructor(
     private firebaseAuth: AngularFireAuth,
     private database: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
     ) {
       this.userCollection = this.database.collection('users');
       this.isAuthenticated$ = this.firebaseAuth.user.pipe(map(user => !!user));
       this.isAuthenticatedWithDelay$ = this.isAuthenticated$.pipe(delay(1000));
+      this.router.events.pipe(
+        filter(e => e instanceof NavigationEnd),
+        map(e => this.route.firstChild),
+        switchMap(route => route?.data ?? of({ authOnly: false }))).subscribe(data => this.redirect = data['authOnly'] ?? false)
     }
 
   public handleRegistrationError(error: string): string {
@@ -71,7 +77,7 @@ export class AuthService {
     event.preventDefault();
 
     await this.firebaseAuth.signOut();
-    await this.router.navigateByUrl('/')
+    if (this.redirect) await this.router.navigateByUrl('/')
   }
 
 
