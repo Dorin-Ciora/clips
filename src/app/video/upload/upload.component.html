@@ -24,7 +24,7 @@
       <ng-template #uploadFormControl>
         <app-alert *ngIf="showAlert" [color]="alertColor">
           <p>{{ alertMsg }}</p>
-          <p>{{ percentage | percent }}</p>
+          <p *ngIf="showPercentage">{{ percentage | percent }}</p>
         </app-alert>
         <!-- Form -->
         <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
