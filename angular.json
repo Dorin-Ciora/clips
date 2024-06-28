@@ -23,9 +23,17 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
+            "allowedCommonJsDependencies": [
+              "@ffmpeg/ffmpeg"
+            ],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "input": "node_modules/@ffmpeg/core/dist/umd",
+                "output": "node_modules/@ffmpeg/core/dist/umd",
+                "glob": "*"
+              }
             ],
             "styles": [
               "src/styles.less"
@@ -73,6 +81,12 @@
             },
             "development": {
               "browserTarget": "Clips:build:development"
+            }
+          },
+          "options": {
+            "headers": {
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "require-corp"
             }
           },
           "defaultConfiguration": "development"
