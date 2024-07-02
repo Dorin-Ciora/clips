@@ -26,14 +26,13 @@
                     [ngClass]="{ 'bg-indigo-400 border-indigo-400 border-solid': isDragOver }"
                     class="w-full px-10 py-40 rounded text-center cursor-pointer border border-dashed border-gray-400 transition duration-500 hover:text-white hover:bg-indigo-400 hover:border-indigo-400 hover:border-solid text-xl"
                 >
-                    <h5>Drop your file here (mp4 only!)</h5>
-                    <div>
-                        <span
-                            *ngIf="ffmpegService.isRunning"
-                            class="material-icons text-center text-6xl p-8 animate-spin"
-                            >autorenew</span
-                        >
+                    <div *ngIf="!ffmpegService.isRunning; else generateThumbnails">
+                        <h5>Drop your file here (mp4 only!)</h5>
                     </div>
+                    <ng-template #generateThumbnails>
+                        <h5>Generating Thumbnails. Please wait</h5>
+                        <span class="material-icons text-center text-6xl p-8 animate-spin">autorenew</span>
+                    </ng-template>
                 </div>
                 <input type="file" class="mt-4" (change)="storeFile($event)" />
             </ng-container>
@@ -49,7 +48,12 @@
                     <!-- Screenshots -->
                     <h2 class="mb-4 text-xl">Select a Thumbnail</h2>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                        <div *ngFor="let screenshot of screenshots" class="border-8 cursor-pointer border-green-400">
+                        <div
+                            *ngFor="let screenshot of screenshots"
+                            class="border-8 cursor-pointer"
+                            [ngClass]="[screenshot === selectedScreenshot ? 'border-green-400' : 'border-transparent']"
+                            (click)="selectedScreenshot = screenshot"
+                        >
                             <img [src]="screenshot | safeURL" />
                         </div>
                     </div>

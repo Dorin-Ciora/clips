@@ -18,7 +18,7 @@ export class RegisterComponent {
       email: new FormControl(
         '',
         [Validators.required, Validators.email],
-        [this.emailTaken.validate]
+        [this.emailTaken.validate],
       ),
       age: new FormControl<number | null>(null, [
         Validators.required,
@@ -27,14 +27,12 @@ export class RegisterComponent {
       ]),
       password: new FormControl('', [
         Validators.required,
-        Validators.pattern(
-          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
-        ),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
       ]),
       confirm_password: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl(''),
     },
-    [RegisterValidators.match('password', 'confirm_password')]
+    [RegisterValidators.match('password', 'confirm_password')],
   );
   public showAlert: boolean = false;
   public alertMsg: string = 'Please wait! Your account is being created.';
@@ -42,7 +40,7 @@ export class RegisterComponent {
 
   constructor(
     private authSerice: AuthService,
-    private emailTaken: EmailTaken
+    private emailTaken: EmailTaken,
   ) {}
 
   public registerUser() {

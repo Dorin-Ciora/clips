@@ -70,7 +70,7 @@ export class ManageComponent implements OnInit {
 
   private getQueryParams(): void {
     this.route.queryParamMap.subscribe((params: ParamMap) => {
-      let sort = params.get('sort');
+      const sort = params.get('sort');
       this.videoOrder = sort === 'desc' ? sort : 'asc';
       this.sort$.next(this.videoOrder);
     });

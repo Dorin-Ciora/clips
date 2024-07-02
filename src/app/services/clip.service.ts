@@ -20,7 +20,7 @@ export class ClipService {
   constructor(
     private db: AngularFirestore,
     private auth: AngularFireAuth,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
   ) {
     this.clipsCollection = this.db.collection('clips');
   }
@@ -44,7 +44,7 @@ export class ClipService {
 
         return query.get();
       }),
-      map((snapshot) => (snapshot as QuerySnapshot<IClip>).docs)
+      map((snapshot) => (snapshot as QuerySnapshot<IClip>).docs),
     );
   }
 
@@ -56,8 +56,12 @@ export class ClipService {
 
   async deleteClip(clip: IClip) {
     const clipRef = this.storage.ref(`clips/${clip.fileName}`);
+    const screenshotRef = this.storage.ref(
+      `screenshots/${clip.screenshotFileName}`,
+    );
 
     await clipRef.delete();
+    await screenshotRef.delete();
 
     await this.clipsCollection.doc(clip.docID).delete();
   }

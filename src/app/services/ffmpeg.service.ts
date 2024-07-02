@@ -42,7 +42,7 @@ export class FfmpegService {
         '1',
         '-filter:v',
         'scale=510:-1',
-        `output_0${second}.png`
+        `output_0${second}.png`,
       );
     });
 
@@ -50,7 +50,7 @@ export class FfmpegService {
     seconds.forEach((second) => {
       const screenShotFile = this.ffmpeg.FS(
         'readFile',
-        `output_0${second}.png`
+        `output_0${second}.png`,
       );
       const screenShotBlob = new Blob([screenShotFile.buffer], {
         type: 'image/png',
@@ -61,5 +61,12 @@ export class FfmpegService {
     this.isRunning = false;
 
     return screenshots;
+  }
+
+  async bloblFromURL(url: string) {
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    return blob;
   }
 }
