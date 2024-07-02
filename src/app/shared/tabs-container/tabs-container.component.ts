@@ -1,24 +1,30 @@
-import { Component, AfterViewInit, ContentChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ContentChildren,
+  QueryList,
+} from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 
 @Component({
   selector: 'app-tabs-container',
   templateUrl: './tabs-container.component.html',
-  styleUrls: ['./tabs-container.component.less']
+  styleUrls: ['./tabs-container.component.less'],
 })
 export class TabsContainerComponent implements AfterViewInit {
-  @ContentChildren(TabComponent) tabs: QueryList<TabComponent> = new QueryList()
+  @ContentChildren(TabComponent) tabs: QueryList<TabComponent> =
+    new QueryList();
 
-  constructor() { }
+  constructor() {}
 
   ngAfterViewInit(): void {
     this.checkActiveTabs();
   }
 
   public selectTab(tab: TabComponent) {
-    this.tabs.forEach(tab => {
+    this.tabs.forEach((tab) => {
       tab.isActive = false;
-    })
+    });
 
     tab.isActive = true;
 
@@ -26,11 +32,10 @@ export class TabsContainerComponent implements AfterViewInit {
   }
 
   private checkActiveTabs() {
-    const activeTabs = this.tabs.filter(tab => tab.isActive);
+    const activeTabs = this.tabs.filter((tab) => tab.isActive);
 
     if (!activeTabs || activeTabs.length === 0) {
-      this.selectTab(this.tabs.first)
+      this.selectTab(this.tabs.first);
     }
   }
-
 }

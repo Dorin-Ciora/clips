@@ -1,69 +1,56 @@
 <app-alert *ngIf="showAlert" [color]="alertColor">
-  {{ alertMsg }}
+    {{ alertMsg }}
 </app-alert>
 
 <!-- Registration Form -->
 <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
-  <!-- Name -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Name</label>
-    <app-input
-      [control]="registrationForm.controls.name"
-      placeholder="Enter name"
+    <!-- Name -->
+    <div class="mb-3">
+        <label class="inline-block mb-2">Name</label>
+        <app-input [control]="registrationForm.controls.name" placeholder="Enter name"> </app-input>
+    </div>
+    <!-- Email -->
+    <div class="mb-3">
+        <label class="inline-block mb-2">Email</label>
+        <app-input [control]="registrationForm.controls.email" type="email" placeholder="Enter Email"> </app-input>
+    </div>
+    <!-- Age -->
+    <div class="mb-3">
+        <label class="inline-block mb-2">Age</label>
+        <app-input [control]="registrationForm.controls.age" type="number" placeholder="Enter age"></app-input>
+    </div>
+    <!-- Password -->
+    <div class="mb-3">
+        <label class="inline-block mb-2">Password</label>
+        <app-input
+            [control]="registrationForm.controls.password"
+            type="password"
+            placeholder="Enter password"
+        ></app-input>
+    </div>
+    <!-- Confirm Password -->
+    <div class="mb-3">
+        <label class="inline-block mb-2">Confirm Password</label>
+        <app-input
+            [control]="registrationForm.controls.confirm_password"
+            type="password"
+            placeholder="Confirm password"
+        ></app-input>
+    </div>
+    <!-- Phone Number -->
+    <div class="mb-3">
+        <label class="inline-block mb-2">Phone Number (optional)</label>
+        <app-input
+            [control]="registrationForm.controls.phoneNumber"
+            placeholder="Enter phone number"
+            type="tel"
+        ></app-input>
+    </div>
+    <button
+        type="submit"
+        class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transitio hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
+        [disabled]="registrationForm.invalid || isCreatingUser"
     >
-    </app-input>
-  </div>
-  <!-- Email -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Email</label>
-    <app-input
-      [control]="registrationForm.controls.email"
-      type="email"
-      placeholder="Enter Email"
-    >
-    </app-input>
-  </div>
-  <!-- Age -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Age</label>
-    <app-input
-      [control]="registrationForm.controls.age"
-      type="number"
-      placeholder="Enter age"
-    ></app-input>
-  </div>
-  <!-- Password -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Password</label>
-    <app-input
-      [control]="registrationForm.controls.password"
-      type="password"
-      placeholder="Enter password"
-    ></app-input>
-  </div>
-  <!-- Confirm Password -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Confirm Password</label>
-    <app-input
-      [control]="registrationForm.controls.confirm_password"
-      type="password"
-      placeholder="Confirm password"
-    ></app-input>
-  </div>
-  <!-- Phone Number -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Phone Number (optional)</label>
-    <app-input
-      [control]="registrationForm.controls.phoneNumber"
-      placeholder="Enter phone number"
-      type="tel"
-    ></app-input>
-  </div>
-  <button
-    type="submit"
-    class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transitio hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
-    [disabled]="registrationForm.invalid || isCreatingUser"
-  >
-    Submit
-  </button>
+        Submit
+    </button>
 </form>

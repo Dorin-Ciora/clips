@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { EventBlockerDirective } from './directives/event-blocker.directive';
 
-
 @NgModule({
   declarations: [
     ModalComponent,
@@ -16,19 +15,16 @@ import { EventBlockerDirective } from './directives/event-blocker.directive';
     TabComponent,
     InputComponent,
     AlertComponent,
-    EventBlockerDirective
+    EventBlockerDirective,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-    ],
+  imports: [CommonModule, ReactiveFormsModule],
   exports: [
     ModalComponent,
     TabsContainerComponent,
     TabComponent,
     InputComponent,
     AlertComponent,
-    EventBlockerDirective
+    EventBlockerDirective,
   ],
 })
-export class SharedModule { }
+export class SharedModule {}
