@@ -1,0 +1,15 @@
+<div class="image-container">
+    <span *ngIf="isLoading; else image" class="material-icons text-center text-6xl p-8 animate-spin"> settings </span>
+    <ng-template #image>
+        <img
+            crossorigin
+            [ngSrc]="imageUrl"
+            width="510"
+            height="287"
+            (load)="onLoad()"
+            (error)="onError()"
+            class="optimized-image"
+            [priority]="priority"
+        />
+    </ng-template>
+</div>

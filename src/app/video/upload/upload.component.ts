@@ -12,6 +12,7 @@ import { ClipService } from 'src/app/services/clip.service';
 import { Router } from '@angular/router';
 import { FfmpegService } from 'src/app/services/ffmpeg.service';
 import { combineLatest, forkJoin } from 'rxjs';
+import { ImageSizeService } from 'src/app/services/image-size.service';
 
 @Component({
   selector: 'app-upload',
@@ -43,6 +44,7 @@ export class UploadComponent implements OnDestroy {
     private clipService: ClipService,
     private router: Router,
     public ffmpegService: FfmpegService,
+    private imageSizeService: ImageSizeService,
   ) {
     this.auth.user.subscribe((user) => (this.user = user));
     this.ffmpegService.init();
@@ -125,6 +127,12 @@ export class UploadComponent implements OnDestroy {
       .subscribe({
         next: async (urls) => {
           const [clipURL, screenshotURL] = urls;
+          const { width, height } =
+            await this.imageSizeService.getImageSize(screenshotURL);
+          const hasPriority = this.imageSizeService.shouldAddPriority(
+            width,
+            height,
+          );
           const clip = {
             uid: this.user?.uid as string,
             displayName: this.user?.displayName as string,
@@ -134,6 +142,7 @@ export class UploadComponent implements OnDestroy {
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             screenshotURL,
             screenshotFileName: `${clipFileName}.png`,
+            hasPriority,
           };
 
           const clipDocRef = await this.clipService.createClip(clip);

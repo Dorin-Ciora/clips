@@ -23,7 +23,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            "allowedCommonJsDependencies": ["@ffmpeg/ffmpeg"],
+            "allowedCommonJsDependencies": [
+              "@ffmpeg/ffmpeg",
+              "@videojs/xhr",
+              "global/document",
+              "keycode",
+              "mux.js/lib/tools/parse-sidx",
+              "safe-json-parse/tuple",
+              "videojs-vtt.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets",

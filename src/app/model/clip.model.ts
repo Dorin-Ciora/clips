@@ -10,4 +10,5 @@ export default interface IClip {
   docID?: string;
   screenshotURL: string;
   screenshotFileName: string;
+  hasPriority: boolean;
 }

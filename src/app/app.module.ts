@@ -16,6 +16,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClipsListComponent } from './clips-list/clips-list.component';
 import { FbTimestampPipe } from './pipes/fb-timestamp.pipe';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FbTimestampPipe } from './pipes/fb-timestamp.pipe';
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFirestoreModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
