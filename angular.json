@@ -30,7 +30,9 @@
               "keycode",
               "mux.js/lib/tools/parse-sidx",
               "safe-json-parse/tuple",
-              "videojs-vtt.js"
+              "videojs-vtt.js",
+              "global/window",
+              "mux.js/lib/utils/clock"
             ],
             "assets": [
               "src/favicon.ico",
@@ -54,8 +56,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "50kb",
-                  "maximumError": "50kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "2mb"
                 }
               ],
               "fileReplacements": [
