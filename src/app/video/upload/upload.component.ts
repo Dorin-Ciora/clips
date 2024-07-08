@@ -75,6 +75,12 @@ export class UploadComponent implements OnDestroy {
     this.nextStep = true;
   }
 
+  public cancelUpload(): void {
+    this.screenshots = [];
+    this.nextStep = false;
+    this.isSubmission = false;
+  }
+
   public async uploadFile() {
     this.uploadForm.disable();
     this.showPercentage = true;
@@ -145,7 +151,7 @@ export class UploadComponent implements OnDestroy {
           this.uploadForm.enable();
           this.alertColor = 'red';
           this.alertMsg = 'Upload failed! Please try again later.';
-          this.isSubmission = true;
+          this.isSubmission = false;
           this.showPercentage = false;
           console.error(error);
         },

@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   public login() {
-    console.log('cred', this.credentials);
     this.isUserLogingIn = true;
     this.showAlert = true;
     this.alertMsg = 'Please wait! You are being loged in.';
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.firebaseAuth
       .signInWithEmailAndPassword(
         this.credentials.email,
-        this.credentials.password
+        this.credentials.password,
       )
       .then(() => {
         this.alertColor = 'green';

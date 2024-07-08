@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BehaviorSubject, every } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import IClip from 'src/app/model/clip.model';
 import { ClipService } from 'src/app/services/clip.service';
 import { ModalService } from 'src/app/services/modal.service';
@@ -20,7 +20,7 @@ export class ManageComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private clipService: ClipService,
-    private modalService: ModalService
+    private modalService: ModalService,
   ) {
     this.sort$ = new BehaviorSubject(this.videoOrder);
   }
@@ -54,6 +54,20 @@ export class ManageComponent implements OnInit {
         setTimeout(() => this.modalService.toggleModal('editClip'), 2000);
       }
     });
+  }
+
+  public async copyToClipboard($event: MouseEvent, docID: string | undefined) {
+    $event.preventDefault();
+
+    if (!docID) {
+      return;
+    }
+
+    const url = `${location.origin}/clip/${docID}`;
+
+    await navigator.clipboard.writeText(url);
+
+    alert('Link Copied!');
   }
 
   public onDeleteClip($event: Event, clipToBeDeleted: IClip) {
