@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { every, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { ModalService } from '../services/modal.service';
 
@@ -14,10 +14,10 @@ export class NavComponent implements OnInit {
 
   constructor(
     public modalService: ModalService,
-    public authService: AuthService
+    public authService: AuthService,
   ) {
     this.isAuthenticated$ = this.authService.isAuthenticated$.pipe(
-      map((user) => !!user)
+      map((user) => !!user),
     );
   }
 

@@ -18,8 +18,6 @@ export class ImageLoaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('asdasd');
-    // Initialize the component
     this.setImageDimensions();
   }
 

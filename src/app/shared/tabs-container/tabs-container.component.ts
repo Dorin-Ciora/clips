@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   ContentChildren,
   QueryList,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 
@@ -15,10 +16,13 @@ export class TabsContainerComponent implements AfterViewInit {
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent> =
     new QueryList();
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
-    this.checkActiveTabs();
+    setTimeout(() => {
+      this.checkActiveTabs();
+      this.cdr.detectChanges();
+    });
   }
 
   public selectTab(tab: TabComponent) {
